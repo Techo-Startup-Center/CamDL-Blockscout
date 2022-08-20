@@ -27,9 +27,11 @@ config :logger, :token_instances,
   path: Path.absname("logs/dev/explorer/tokens/token_instances.log"),
   metadata_filter: [fetcher: :token_instances]
 
+import_config "dev.secret.exs"
+
 variant =
   if is_nil(System.get_env("ETHEREUM_JSONRPC_VARIANT")) do
-    "ganache"
+    "besu"
   else
     System.get_env("ETHEREUM_JSONRPC_VARIANT")
     |> String.split(".")
