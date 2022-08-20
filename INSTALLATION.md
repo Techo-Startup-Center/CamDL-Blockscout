@@ -1,63 +1,8 @@
-<h1 align="center">BlockScout</h1>
-<p align="center">Blockchain Explorer for inspecting and analyzing EVM Chains.</p>
-<div align="center">
-
-[![Blockscout](https://github.com/blockscout/blockscout/workflows/Blockscout/badge.svg?branch=master)](https://github.com/blockscout/blockscout/actions) [![Join the chat at https://gitter.im/poanetwork/blockscout](https://badges.gitter.im/poanetwork/blockscout.svg)](https://gitter.im/poanetwork/blockscout?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-</div>
-
-BlockScout provides a comprehensive, easy-to-use interface for users to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine) blockchains. This includes the POA Network, xDai Chain, Ethereum Classic and other **Ethereum testnets, private networks and sidechains**.
-
-See our [project documentation](https://docs.blockscout.com/) for detailed information and setup instructions.
-
-Visit the [POA BlockScout forum](https://forum.poa.network/c/blockscout) for FAQs, troubleshooting, and other BlockScout related items. You can also post and answer questions here.
-
-You can also access the dev chatroom on our [Gitter Channel](https://gitter.im/poanetwork/blockscout).
-
-## About BlockScout
-
-BlockScout is an Elixir application that allows users to search transactions, view accounts and balances, and verify smart contracts on the Ethereum network including all forks and sidechains.
-
-Currently available full-featured block explorers (Etherscan, Etherchain, Blockchair) are closed systems which are not independently verifiable.  As Ethereum sidechains continue to proliferate in both private and public settings, transparent, open-source tools are needed to analyze and validate transactions.
-
-## Supported Projects
-
-BlockScout supports a number of projects. Hosted instances include POA Network, xDai Chain, Ethereum Classic, Sokol & Kovan testnets, and other EVM chains. 
-
-- [List of hosted mainnets, testnets, and additional chains using BlockScout](https://docs.blockscout.com/for-projects/supported-projects)
-- [Hosted instance versions](https://docs.blockscout.com/about/use-cases/hosted-blockscout)
-
-
-## Getting Started
-
-See the [project documentation](https://docs.blockscout.com/) for instructions:
-- [Requirements](https://docs.blockscout.com/for-developers/information-and-settings/requirements)
-- [Ansible deployment](https://docs.blockscout.com/for-developers/ansible-deployment)
-- [Manual deployment](https://docs.blockscout.com/for-developers/manual-deployment)
-- [ENV variables](https://docs.blockscout.com/for-developers/information-and-settings/env-variables)
-- [Configuration options](https://docs.blockscout.com/for-developers/configuration-options)
-
-
-## Acknowledgements
-
-We would like to thank the [EthPrize foundation](http://ethprize.io/) for their funding support.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution and pull request protocol. We expect contributors to follow our [code of conduct](CODE_OF_CONDUCT.md) when submitting code or comments.
-
-## License
-
-[![License: GPL v3.0](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
-This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
-
-
 # BlockScout
 
-**Fork for Loom Dappchains, it has additional compatiblity with Plasmachain and other Loom SDK based chains.**
+**Fork for CamDL Network**
 
-BlockScout provides a comprehensive, easy-to-use interface for users to view, confirm, and inspect transactions on **all EVM** (Ethereum Virtual Machine) blockchains. This includes the Ethereum main and test networks as well as **Ethereum forks and sidechains**. This version is customized for Loomchain
+BlockScout provides a comprehensive, easy-to-use interface for users to view, confirm, and inspect transactions on **all EVM** (Ethereum Virtual Machine) blockchains. This includes the Ethereum main and test networks as well as **Ethereum forks and sidechains**.
 
 Following is an overview of the project and instructions for [getting started](#getting-started).
 
@@ -85,10 +30,9 @@ The [development stack page](https://github.com/poanetwork/blockscout/wiki/Devel
 
 | Dependency  | Mac | Linux |
 |-------------|-----|-------|
-| [Erlang/OTP 21.0.4](https://github.com/erlang/otp) | `brew install erlang` | [Erlang Install Example](https://github.com/loomnetwork/blockscout-terraform/blob/33f68e816e36dc2fb055911fa0372531f0e956e7/modules/stack/libexec/init.sh#L134) |
-| [Elixir 1.8.1](https://elixir-lang.org/) | :point_up: | [Elixir Install Example](https://github.com/loomnetwork/blockscout-terraform/blob/33f68e816e36dc2fb055911fa0372531f0e956e7/modules/stack/libexec/init.sh#L138) |
-| [Postgres 10.3](https://www.postgresql.org/) | `brew install postgresql` | [Postgres Install Example](https://github.com/loomnetwork/blockscout-terraform/blob/33f68e816e36dc2fb055911fa0372531f0e956e7/modules/stack/libexec/init.sh#L187) |
-| [Node.js 10.5.0](https://nodejs.org/en/) | `brew install node` | [Node.js Install Example](https://github.com/loomnetwork/blockscout-terraform/blob/33f68e816e36dc2fb055911fa0372531f0e956e7/modules/stack/libexec/init.sh#L66) |
+| [Erlang/OTP 24.3.3](https://github.com/erlang/otp) | `brew install erlang` | [Erlang Install Example](https://github.com/loomnetwork/blockscout-terraform/blob/33f68e816e36dc2fb055911fa0372531f0e956e7/modules/stack/libexec/init.sh#L134) |
+| [Elixir 1.13.0](https://elixir-lang.org/) | :point_up: | [Elixir Install Example](https://github.com/loomnetwork/blockscout-terraform/blob/33f68e816e36dc2fb055911fa0372531f0e956e7/modules/stack/libexec/init.sh#L138) |
+| [Node.js 10](https://nodejs.org/en/) | `brew install node` | [Node.js Install Example](https://github.com/loomnetwork/blockscout-terraform/blob/33f68e816e36dc2fb055911fa0372531f0e956e7/modules/stack/libexec/init.sh#L66) |
 | [Automake](https://www.gnu.org/software/automake/) | `brew install automake` | [Automake Install Example](https://github.com/loomnetwork/blockscout-terraform/blob/33f68e816e36dc2fb055911fa0372531f0e956e7/modules/stack/libexec/init.sh#L72) |
 | [Libtool](https://www.gnu.org/software/libtool/) | `brew install libtool` | [Libtool Install Example](https://github.com/loomnetwork/blockscout-terraform/blob/33f68e816e36dc2fb055911fa0372531f0e956e7/modules/stack/libexec/init.sh#L62) |
 | [Inotify-tools](https://github.com/rvoicilas/inotify-tools/wiki) | Not Required | Ubuntu - `apt-get install inotify-tools` |
@@ -96,9 +40,10 @@ The [development stack page](https://github.com/poanetwork/blockscout/wiki/Devel
 | [GMP](https://gmplib.org/) | `brew install gmp` | [Install GMP Devel](https://github.com/loomnetwork/blockscout-terraform/blob/33f68e816e36dc2fb055911fa0372531f0e956e7/modules/stack/libexec/init.sh#L74) |
 
 ### Build and Run
+  0. Please ensure all requirements for modules and dependencies are setup correctly with specified version in above section
 
-  1. Clone the repository.
-  `git clone https://github.com/loomnetwork/blockscout`
+  1. Clone the repository, branch "camdl-hotreload"
+  `git clone https://github.com/Techo-Startup-Center/CamDL-Blockscout.git`
 
   2. Go to the explorer subdirectory.
   `cd blockscout`
@@ -107,10 +52,6 @@ The [development stack page](https://github.com/poanetwork/blockscout/wiki/Devel
   `cp apps/explorer/config/dev.secret.exs.example apps/explorer/config/dev.secret.exs`
   `cp apps/block_scout_web/config/dev.secret.exs.example apps/block_scout_web/config/dev.secret.exs`
   <br />Linux: Update the database username and password configuration in `apps/explorer/config/dev.secret.exs`
-  <br />Mac: Remove the `username` and `password` fields from `apps/explorer/config/dev.secret.exs`
-  <br />Optional: Set up default configuration for testing.
-  `cp apps/explorer/config/test.secret.exs.example apps/explorer/config/test.secret.exs`
-  Example usage: Changing the default Postgres port from localhost:15432 if [Boxen](https://github.com/boxen/boxen) is installed.
 
   4. Install dependencies.
   `mix do deps.get, local.rebar --force, deps.compile, compile`
@@ -124,15 +65,7 @@ The [development stack page](https://github.com/poanetwork/blockscout/wiki/Devel
   `cd apps/block_scout_web/assets && npm install; cd -`
   `cd apps/explorer && npm install; cd -`
 
-  7. Update your JSON RPC Variant in `apps/explorer/config/dev.exs` and `apps/indexer/config/dev.exs`.
-  For `variant`, enter `ganache`, `geth`, or `parity`
-
-  8. Update your JSON RPC Endpoint in `apps/explorer/config/dev/` and `apps/indexer/config/dev/`
-  For the `variant` chosen in step 7, enter the correct information for the corresponding JSON RPC Endpoint in `parity.exs`, `geth.exs`, or `ganache.exs`
-
-  9. Use the environment variables to correct set the `ETHEREUM_JSONRPC_HTTP_URL` which should point for the loomchain `http://IP-ADDRESS:PORT/eth` for instance `http://localhost:46658/eth`, also set the websocket env var `ETHEREUM_JSONRPC_WS_URL` which should point for loomchain also but using `ws` istead of `http`, for istance `ws://IP-ADDRESS:PORT/eth`
-
-  10. Enable HTTPS in development. The Phoenix server only runs with HTTPS.
+  7. Enable HTTPS in development. The Phoenix server only runs with HTTPS.
      * `cd apps/block_scout_web`
      * `mix phx.gen.cert blockscout blockscout.local; cd -`
      * Add blockscout and blockscout.local to your `/etc/hosts`
@@ -143,7 +76,7 @@ The [development stack page](https://github.com/poanetwork/blockscout/wiki/Devel
       ```
       * If using Chrome, Enable `chrome://flags/#allow-insecure-localhost`.
 
-  11. Start Phoenix Server.
+  8. Start Phoenix Server.
   `mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
