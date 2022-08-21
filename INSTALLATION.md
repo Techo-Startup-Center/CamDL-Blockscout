@@ -56,7 +56,7 @@ The [development stack page](https://github.com/poanetwork/blockscout/wiki/Devel
   4. Install dependencies.
   `mix do deps.get, local.rebar --force, deps.compile, compile`
 
-  5. Clone CamDL node repository 
+  5. Clone CamDL node repository, branch "local_node_minimal"
   `git clone https://github.com/Techo-Startup-Center/CamDL-Besu-Node.git`
 
   6. Extract blockscout_db.rar in ./CamDL-Besu-Node/.node_files
