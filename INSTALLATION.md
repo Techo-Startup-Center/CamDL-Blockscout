@@ -56,12 +56,19 @@ The [development stack page](https://github.com/poanetwork/blockscout/wiki/Devel
   4. Install dependencies.
   `mix do deps.get, local.rebar --force, deps.compile, compile`
 
-  5. Create and migrate database.
+  5. Clone CamDL node repository 
+  `git clone https://github.com/Techo-Startup-Center/CamDL-Besu-Node.git`
+
+  6. Extract blockscout_db.rar in ./CamDL-Besu-Node/.node_files
+  <br />_Note: If you want to start from empty database
   `mix ecto.create && mix ecto.migrate`
   <br />_Note:_ If you have run previously, drop the previous database
   `mix do ecto.drop, ecto.create, ecto.migrate`
 
-  6. Install Node.js dependencies.
+  7. cd into CamDL-Besu-Node then execute docker-compose up, ensure port "5432" is not taken
+  `docker-compose up -d`
+
+  6. Back to Blockscout project, Install Node.js dependencies.
   `cd apps/block_scout_web/assets && npm install; cd -`
   `cd apps/explorer && npm install; cd -`
 
