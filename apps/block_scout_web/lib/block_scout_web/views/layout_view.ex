@@ -10,26 +10,33 @@ defmodule BlockScoutWeb.LayoutView do
   @issue_url "https://github.com/blockscout/blockscout/issues/new"
   @default_other_networks [
     %{
-      title: "POA",
-      url: "https://blockscout.com/poa/core"
+      title: "Mainnet Explorer",
+      url: "https://explorer.camdl.gov.kh",
+      main_net?: true
     },
     %{
-      title: "Sokol",
-      url: "https://blockscout.com/poa/sokol",
+      title: "Mainnet Network Status",
+      url: "https://explorer.camdl.gov.kh",
+      main_net?: true
+    },
+    %{
+      title: "Test Explorer",
+      url: "https://testnet-explorer.camdl.gov.kh",
       test_net?: true
     },
     %{
-      title: "xDai",
-      url: "https://blockscout.com/xdai/mainnet"
+      title: "Test Network Status",
+      url: "https://testnet-stats.camdl.gov.kh",
+      test_net?: true
     },
     %{
-      title: "Ethereum Classic",
-      url: "https://blockscout.com/etc/mainnet",
+      title: "Staging Explorer",
+      url: "https://staging-explorer.camdl.gov.kh",
       other?: true
     },
     %{
-      title: "RSK",
-      url: "https://blockscout.com/rsk/mainnet",
+      title: "Staging Network Status",
+      url: "https://staging-stats.camdl.gov.kh",
       other?: true
     }
   ]
@@ -50,7 +57,7 @@ defmodule BlockScoutWeb.LayoutView do
   end
 
   def subnetwork_title do
-    Keyword.get(application_config(), :subnetwork) || "Sokol"
+    Keyword.get(application_config(), :subnetwork) || "CamDL"
   end
 
   def network_title do
@@ -160,12 +167,17 @@ defmodule BlockScoutWeb.LayoutView do
 
   def main_nets(nets) do
     nets
-    |> Enum.reject(&Map.get(&1, :test_net?))
+    |> Enum.filter(&Map.get(&1, :main_net?))
   end
 
   def test_nets(nets) do
     nets
     |> Enum.filter(&Map.get(&1, :test_net?))
+  end
+
+  def test_nets_footer(nets) do
+    nets
+    |> Enum.reject(&Map.get(&1, :main_net?))
   end
 
   def dropdown_nets do

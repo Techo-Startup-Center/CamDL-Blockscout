@@ -5,6 +5,8 @@
     @include media-breakpoint-up(lg) {
         display: none !important;
     }
+    margin-top: 2px;
+    border-radius: 5px !important;
 }
 
 .mobile-search-hide {

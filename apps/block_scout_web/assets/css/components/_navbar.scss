@@ -10,16 +10,18 @@ $header-textfield-text-color: $header-links-color !default;
 $header-textfield-background-color: #f5f6fa !default;
 $header-textfield-magnifier-color: $header-links-color !default;
 $header-link-horizontal-padding: 0.71rem;
-$navbar-logo-height: 28px !default;
+$navbar-logo-height: 55px !default;
 $navbar-logo-width: auto !default;
 
 .navbar.navbar-primary {
   background-color: $header-background-color;
   position: relative;
   z-index: 100;
+  height: 75px;
 
   .nav-item {
     font-size: 14px;
+    margin-left: 10px;
   }
 
   .navbar-nav {

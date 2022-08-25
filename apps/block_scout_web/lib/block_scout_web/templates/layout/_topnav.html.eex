@@ -25,12 +25,6 @@
               <%= link to: blocks_path(@conn, :index), class: "dropdown-item #{tab_status("blocks", @conn.request_path)}" do %>
                 <%= gettext("Blocks") %>
               <% end %>
-              <%= link to: uncle_path(@conn, :uncle), class: "dropdown-item #{tab_status("uncles", @conn.request_path)}" do %>
-                <%= gettext("Uncles") %>
-              <% end %>
-              <%= link to: reorg_path(@conn, :reorg), class: "dropdown-item #{tab_status("reorgs", @conn.request_path)}" do %>
-                <%= gettext("Forked Blocks (Reorgs)") %>
-              <% end %>
             </div>
           </li>
           <li class="nav-item dropdown">            <li class="nav-item dropdown" id="activeTransactions">
@@ -58,60 +52,6 @@
               <% end %>
             </div>
           </li>
-          <%= if Chain.bridged_tokens_enabled?() do %>
-            <li class="nav-item dropdown">
-              <a href="#" role="button" id="navbarTokensDropdown" class="nav-link topnav-nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="nav-link-icon">
-                  <%= render BlockScoutWeb.IconsView, "_tokens_icon.html" %>
-                </span>
-                <%= gettext("Tokens") %>
-              </a>
-              <div class="dropdown-menu" aria-labeledby="navbarTransactionsDropdown"> 
-                <%= link(
-                      gettext("All"),
-                      class: "dropdown-item #{tab_status("tokens", @conn.request_path)}",
-                      to: tokens_path(@conn, :index)
-                    ) %>
-                <%= link(
-                      gettext("Bridged from Ethereum"),
-                      class: "dropdown-item #{tab_status("bridged-tokens/eth", @conn.request_path)}",
-                      to: bridged_tokens_path(@conn, :show, :eth),
-                      style: "white-space: nowrap;"
-                    ) %>
-                <%= link(
-                      gettext("Bridged from BSC"),
-                      class: "dropdown-item #{tab_status("bridged-tokens/bsc", @conn.request_path)}",
-                      to: bridged_tokens_path(@conn, :show, :bsc)
-                    ) %>
-                <%= link(
-                      gettext("Ether"),
-                      class: "dropdown-item #{tab_status("accounts", @conn.request_path)}",
-                      to: address_path(@conn, :index)
-                    ) %>
-              </div>
-            </li>
-          <% else %>
-            <li class="nav-item dropdown">
-              <a href="#" role="button" id="navbarTokensDropdown" class="nav-link topnav-nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="nav-link-icon">
-                  <%= render BlockScoutWeb.IconsView, "_tokens_icon.html" %>
-                </span>
-                <%= gettext("Tokens") %>
-              </a>
-              <div class="dropdown-menu" aria-labeledby="navbarTransactionsDropdown"> 
-                <%= link(
-                      gettext("All"),
-                      class: "dropdown-item #{tab_status("tokens", @conn.request_path)}",
-                      to: tokens_path(@conn, :index)
-                    ) %>
-                <%= link(
-                      gettext("Ether"),
-                      class: "dropdown-item #{tab_status("accounts", @conn.request_path)}",
-                      to: address_path(@conn, :index)
-                    ) %>
-              </div>
-            </li>
-          <% end %>
         <% end %>
         <%= if Application.get_env(:block_scout_web, BlockScoutWeb.ApiRouter)[:reading_enabled] || Application.get_env(:block_scout_web, :api_url) do %>
           <li class="nav-item dropdown">
@@ -121,7 +61,7 @@
               </span>
               <%= gettext("APIs") %>
             </a>
-            <div class="dropdown-menu" aria-labeledby="navbarTransactionsDropdown"> 
+            <div class="dropdown-menu" aria-labeledby="navbarTransactionsDropdown">
               <%= link(
                     gettext("GraphQL"),
                     class: "dropdown-item #{tab_status("graphiql", @conn.request_path)}",
@@ -160,7 +100,7 @@
                 </a>
               <% end %>
               <%= if apps_menu == true do %>
-                <%= for %{url: url, title: title} <- external_apps_list() do %> 
+                <%= for %{url: url, title: title} <- external_apps_list() do %>
                     <a href="<%= url %>" class="dropdown-item" target="_blank"><%= title %>
                       <span class="external-link-icon">
                         <%= render BlockScoutWeb.IconsView, "_external_link.html" %>
@@ -178,19 +118,19 @@
             </span>
             <%= subnetwork_title() %>
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">  
-            <a class="dropdown-item header division">Mainnets</a> 
-            <%= for %{url: url, title: title} <- dropdown_head_main_nets() do %>  
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item header division">Mainnet</a>
+            <%= for %{url: url, title: title} <- dropdown_head_main_nets() do %>
               <a class="dropdown-item" href="<%= url %>"><%= title %></a>
-            <% end %> 
-            <a class="dropdown-item header division">Testnets</a> 
-            <%= for %{url: url, title: title} <- test_nets(dropdown_nets()) do %> 
+            <% end %>
+            <a class="dropdown-item header division">Test Network</a>
+            <%= for %{url: url, title: title} <- test_nets(dropdown_nets()) do %>
               <a class="dropdown-item" href="<%= url %>"><%= title %></a>
-            <% end %> 
-            <a class="dropdown-item header division">Other Networks</a> 
-            <%= for %{url: url, title: title} <- dropdown_other_nets() do %>  
+            <% end %>
+            <a class="dropdown-item header division">Staging Network</a>
+            <%= for %{url: url, title: title} <- dropdown_other_nets() do %>
               <a class="dropdown-item" href="<%= url %>"><%= title %></a>
-            <% end %> 
+            <% end %>
           </div>
         </li>
       </ul>

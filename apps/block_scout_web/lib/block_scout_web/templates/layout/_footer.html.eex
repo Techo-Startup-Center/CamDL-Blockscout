@@ -4,7 +4,7 @@
     <div class="row footer-logo-row">
       <div class="col-md-12">
         <%= link to: webapp_url(@conn), class: "footer-brand" do %>
-          <img class="footer-logo" src="<%= static_path(@conn, logo_footer()) %>" alt="<%= subnetwork_title() %>" />
+          <img id="footer-logo" class="footer-logo" src="<%= static_path(@conn, logo_footer()) %>" alt="<%= subnetwork_title() %>" />
           <%= if logo_text() do %>
             <span class="logo-text in-footer"> <%= logo_text() %> </span>
           <% end %>
@@ -53,7 +53,7 @@
         </div>
       <% end %>
 
-      <% test_nets = test_nets(other_networks()) %>
+      <% test_nets = test_nets_footer(other_networks()) %>
 
       <%= unless Enum.empty?(test_nets) do %>
         <div class="col-xs-12 col-md-4 col-lg-<%= col_size %> footer-list">
@@ -61,17 +61,6 @@
           <ul>
             <%= for %{title: title, url: url} <- test_nets do %>
               <li><a href="<%= url %>" rel="noreferrer" class="footer-link"> <%= title %> </a></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <%= unless Enum.empty?(other_explorers) do %>
-        <div class="col-xs-12 col-md-4 col-lg-<%= col_size %> footer-list">
-          <h3><%= gettext("Other Explorers") %></h3>
-          <ul>
-            <%= for {name, url} <- other_explorers do %>
-              <li><a href="<%= url %>" rel="noreferrer" class="footer-link"> <%= name %> </a></li>
             <% end %>
           </ul>
         </div>

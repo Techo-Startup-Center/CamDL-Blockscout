@@ -51,7 +51,7 @@ defmodule BlockScoutWeb.BlockView do
   end
 
   def show_reward?([]), do: false
-  def show_reward?(_), do: true
+  def show_reward?(_), do: false
 
   def block_reward_text(%Reward{address_hash: beneficiary_address, address_type: :validator}, block_miner_address) do
     if Application.get_env(:explorer, Explorer.Chain.Block.Reward, %{})[:keys_manager_contract_address] do
