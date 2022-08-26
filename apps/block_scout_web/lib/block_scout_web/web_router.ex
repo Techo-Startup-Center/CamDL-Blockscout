@@ -48,10 +48,6 @@ defmodule BlockScoutWeb.WebRouter do
 
     get("/uncles", BlockController, :uncle, as: :uncle)
 
-    get("/validators", StakesController, :index, as: :validators, assigns: %{filter: :validator})
-    get("/active-pools", StakesController, :index, as: :active_pools, assigns: %{filter: :active})
-    get("/inactive-pools", StakesController, :index, as: :inactive_pools, assigns: %{filter: :inactive})
-
     resources("/pending-transactions", PendingTransactionController, only: [:index])
 
     resources("/recent-transactions", RecentTransactionsController, only: [:index])
@@ -84,8 +80,6 @@ defmodule BlockScoutWeb.WebRouter do
     resources("/accounts", AddressController, only: [:index])
 
     resources("/tokens", TokensController, only: [:index])
-
-    resources("/bridged-tokens", BridgedTokensController, only: [:index, :show])
 
     resources "/address", AddressController, only: [:show] do
       resources("/transactions", AddressTransactionController, only: [:index], as: :transaction)
@@ -140,10 +134,24 @@ defmodule BlockScoutWeb.WebRouter do
       )
 
       resources(
-        "/verify-via-json",
+        "/verify-via-metadata-json",
         AddressContractVerificationViaJsonController,
         only: [:new],
         as: :verify_contract_via_json
+      )
+
+      resources(
+        "/verify-via-standard-json-input",
+        AddressContractVerificationViaStandardJsonInputController,
+        only: [:new],
+        as: :verify_contract_via_standard_json_input
+      )
+
+      resources(
+        "/verify-via-multi-part-files",
+        AddressContractVerificationViaMultiPartFilesController,
+        only: [:new],
+        as: :verify_contract_via_multi_part_files
       )
 
       resources(
@@ -229,9 +237,30 @@ defmodule BlockScoutWeb.WebRouter do
 
       resources(
         "/read-contract",
-        Tokens.ReadContractController,
+        Tokens.ContractController,
         only: [:index],
         as: :read_contract
+      )
+
+      resources(
+        "/write-contract",
+        Tokens.ContractController,
+        only: [:index],
+        as: :write_contract
+      )
+
+      resources(
+        "/read-proxy",
+        Tokens.ContractController,
+        only: [:index],
+        as: :read_proxy
+      )
+
+      resources(
+        "/write-proxy",
+        Tokens.ContractController,
+        only: [:index],
+        as: :write_proxy
       )
 
       resources(
@@ -287,9 +316,30 @@ defmodule BlockScoutWeb.WebRouter do
 
       resources(
         "/read-contract",
-        Tokens.ReadContractController,
+        Tokens.ContractController,
         only: [:index],
         as: :read_contract
+      )
+
+      resources(
+        "/write-contract",
+        Tokens.ContractController,
+        only: [:index],
+        as: :write_contract
+      )
+
+      resources(
+        "/read-proxy",
+        Tokens.ContractController,
+        only: [:index],
+        as: :read_proxy
+      )
+
+      resources(
+        "/write-proxy",
+        Tokens.ContractController,
+        only: [:index],
+        as: :write_proxy
       )
 
       resources(
@@ -351,8 +401,6 @@ defmodule BlockScoutWeb.WebRouter do
     get("/search-results", SearchController, :search_results)
 
     get("/csv-export", CsvExportController, :index)
-
-    post("/captcha", CaptchaController, :index)
 
     get("/transactions-csv", AddressTransactionController, :transactions_csv)
 

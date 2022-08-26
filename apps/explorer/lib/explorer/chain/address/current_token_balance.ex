@@ -11,8 +11,8 @@ defmodule Explorer.Chain.Address.CurrentTokenBalance do
   import Ecto.Changeset
   import Ecto.Query, only: [from: 2, limit: 2, offset: 2, order_by: 3, preload: 2]
 
-  alias Explorer.{Chain, PagingOptions}
-  alias Explorer.Chain.{Address, Block, BridgedToken, Hash, Token}
+  alias Explorer.{Chain, PagingOptions, Repo}
+  alias Explorer.Chain.{Address, Block, Hash, Token}
 
   @default_paging_options %PagingOptions{page_size: 50}
 
@@ -163,12 +163,10 @@ defmodule Explorer.Chain.Address.CurrentTokenBalance do
       ctb in __MODULE__,
       where: ctb.address_hash == ^address_hash,
       where: ctb.value > 0,
-      left_join: bt in BridgedToken,
-      on: ctb.token_contract_address_hash == bt.home_token_contract_address_hash,
       left_join: t in Token,
       on: ctb.token_contract_address_hash == t.contract_address_hash,
       preload: :token,
-      select: {ctb, bt, t},
+      select: {ctb, t},
       order_by: [desc: ctb.value, asc: t.type, asc: t.name]
     )
   end
@@ -188,25 +186,33 @@ defmodule Explorer.Chain.Address.CurrentTokenBalance do
   Builds an `t:Ecto.Query.t/0` to fetch the current balance of the given address for the given token.
   """
   def last_token_balance(address_hash, token_contract_address_hash) do
-    from(
-      tb in __MODULE__,
-      where: tb.token_contract_address_hash == ^token_contract_address_hash,
-      where: tb.address_hash == ^address_hash,
-      select: tb.value
-    )
+    query =
+      from(
+        tb in __MODULE__,
+        where: tb.token_contract_address_hash == ^token_contract_address_hash,
+        where: tb.address_hash == ^address_hash,
+        select: tb.value
+      )
+
+    query
+    |> Repo.one()
   end
 
   @doc """
   Builds an `t:Ecto.Query.t/0` to fetch the current balance of the given address for the given token and token_id
   """
   def last_token_balance_1155(address_hash, token_contract_address_hash, token_id) do
-    from(
-      ctb in __MODULE__,
-      where: ctb.token_contract_address_hash == ^token_contract_address_hash,
-      where: ctb.address_hash == ^address_hash,
-      where: ctb.token_id == ^token_id,
-      select: ctb.value
-    )
+    query =
+      from(
+        ctb in __MODULE__,
+        where: ctb.token_contract_address_hash == ^token_contract_address_hash,
+        where: ctb.address_hash == ^address_hash,
+        where: ctb.token_id == ^token_id,
+        select: ctb.value
+      )
+
+    query
+    |> Repo.one()
   end
 
   @doc """
