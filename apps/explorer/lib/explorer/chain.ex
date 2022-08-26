@@ -227,37 +227,14 @@ defmodule Explorer.Chain do
     paging_options = Keyword.get(options, :paging_options, @default_paging_options)
 
     if direction == nil do
-      query_to_address_hash_wrapped =
-        InternalTransaction
-        |> InternalTransaction.where_nonpending_block()
-        |> InternalTransaction.where_address_fields_match(hash, :to_address_hash)
-        |> InternalTransaction.where_block_number_in_period(from_block, to_block)
-        |> common_where_limit_order(paging_options)
-        |> wrapped_union_subquery()
-
-      query_from_address_hash_wrapped =
-        InternalTransaction
-        |> InternalTransaction.where_nonpending_block()
-        |> InternalTransaction.where_address_fields_match(hash, :from_address_hash)
-        |> InternalTransaction.where_block_number_in_period(from_block, to_block)
-        |> common_where_limit_order(paging_options)
-        |> wrapped_union_subquery()
-
-      query_created_contract_address_hash_wrapped =
-        InternalTransaction
-        |> InternalTransaction.where_nonpending_block()
-        |> InternalTransaction.where_address_fields_match(hash, :created_contract_address_hash)
-        |> InternalTransaction.where_block_number_in_period(from_block, to_block)
-        |> common_where_limit_order(paging_options)
-        |> wrapped_union_subquery()
-
       full_query =
-        query_to_address_hash_wrapped
-        |> union(^query_from_address_hash_wrapped)
-        |> union(^query_created_contract_address_hash_wrapped)
+        InternalTransaction
+        |> InternalTransaction.where_nonpending_block()
+        |> InternalTransaction.where_address_fields_match(hash, nil)
+        |> InternalTransaction.where_block_number_in_period(from_block, to_block)
+        |> common_where_limit_order(paging_options)
 
       full_query
-      |> wrapped_union_subquery()
       |> order_by(
         [q],
         desc: q.block_number,
@@ -2506,17 +2483,6 @@ defmodule Explorer.Chain do
     Decimal.mult(tokens, price)
   end
 
-  def address_tokens_usd_sum(token_balances) do
-    token_balances
-    |> Enum.reduce(Decimal.new(0), fn {token_balance, _, _}, acc ->
-      if token_balance.value && token_balance.token.usd_value do
-        Decimal.add(acc, balance_in_usd(token_balance))
-      else
-        acc
-      end
-    end)
-  end
-
   defp contract?(%{contract_code: nil}), do: false
 
   defp contract?(%{contract_code: _}), do: true
@@ -2987,10 +2953,14 @@ defmodule Explorer.Chain do
         right_join:
           missing_range in fragment(
             """
-              (SELECT distinct b1.number
+            (
+              SELECT distinct b1.number
               FROM generate_series((?)::integer, (?)::integer) AS b1(number)
               WHERE NOT EXISTS
-                (SELECT 1 FROM blocks b2 WHERE b2.number=b1.number AND b2.consensus))
+                (SELECT 1 FROM blocks b2 WHERE b2.number=b1.number AND b2.consensus)
+              ORDER BY b1.number DESC
+              LIMIT 500000
+            )
             """,
             ^range_min,
             ^range_max
