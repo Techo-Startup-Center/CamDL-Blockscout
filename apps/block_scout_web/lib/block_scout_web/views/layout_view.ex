@@ -7,7 +7,6 @@ defmodule BlockScoutWeb.LayoutView do
 
   import BlockScoutWeb.AddressView, only: [from_address_hash: 1]
 
-  @issue_url "https://github.com/blockscout/blockscout/issues/new"
   @default_other_networks [
     %{
       title: "Mainnet Explorer",
@@ -44,12 +43,11 @@ defmodule BlockScoutWeb.LayoutView do
   alias BlockScoutWeb.SocialMedia
 
   def logo do
-    Keyword.get(application_config(), :logo) || "/images/blockscout_logo.svg"
+    Keyword.get(application_config(), :logo)
   end
 
   def logo_footer do
-    Keyword.get(application_config(), :logo_footer) || Keyword.get(application_config(), :logo) ||
-      "/images/blockscout_logo.svg"
+    Keyword.get(application_config(), :logo_footer) || Keyword.get(application_config(), :logo)
   end
 
   def logo_text do
@@ -79,7 +77,9 @@ defmodule BlockScoutWeb.LayoutView do
       title: subnetwork_title() <> ": <Issue Title>"
     ]
 
-    [@issue_url, "?", URI.encode_query(params)]
+    issue_url = "#{Application.get_env(:block_scout_web, :footer)[:github_link]}/issues/new"
+
+    [issue_url, "?", URI.encode_query(params)]
   end
 
   defp issue_body(conn) do

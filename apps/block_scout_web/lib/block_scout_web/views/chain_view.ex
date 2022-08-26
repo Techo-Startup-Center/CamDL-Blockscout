@@ -84,4 +84,17 @@ defmodule BlockScoutWeb.ChainView do
   def format_currency_value(value, symbol) when is_float(value) do
     "#{number_to_currency(value, unit: symbol, precision: 0)}"
   end
+
+  defp gas_prices do
+    case GasPriceOracle.get_gas_prices() do
+      {:ok, gas_prices} ->
+        gas_prices
+
+      nil ->
+        nil
+
+      _ ->
+        nil
+    end
+  end
 end

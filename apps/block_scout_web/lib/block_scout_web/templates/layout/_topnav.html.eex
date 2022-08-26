@@ -1,11 +1,15 @@
-<% staking_enabled_in_menu = Application.get_env(:block_scout_web, BlockScoutWeb.Chain)[:staking_enabled_in_menu] %>
 <% apps_menu = Application.get_env(:block_scout_web, :apps_menu) %>
 <nav class="navbar navbar-dark navbar-expand-lg navbar-primary" data-selector="navbar" id="top-navbar">
   <div class="container-fluid navbar-container">
     <%= link to: webapp_url(@conn), class: "navbar-brand", "data-test": "header_logo" do %>
-      <img class="navbar-logo" id="navbar-logo" src="<%= static_path(@conn, logo()) %>" alt="<%= subnetwork_title() %>" />
+      <%= if logo() do %>
+        <img class="navbar-logo" id="navbar-logo" src="<%= static_path(@conn, logo()) %>" alt="<%= subnetwork_title() %>" />
+      <% end %>
       <%= if logo_text() do %>
-        <span class="logo-text"> <%= logo_text() %> </span>
+        <span class="logo-text <%= unless logo(), do: "no-logo" %>"> <%= logo_text() %> </span>
+      <% end %>
+      <%= if Application.get_env(:block_scout_web, BlockScoutWeb.Chain)[:enable_testnet_label] do %>
+        <%= render BlockScoutWeb.FormView, "_tag.html", text: Application.get_env(:block_scout_web, BlockScoutWeb.Chain)[:testnet_label_text], additional_classes: ["testnet-label", "ml-2"] %>
       <% end %>
     <% end %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="<%= gettext("Toggle navigation") %>">
@@ -27,7 +31,7 @@
               <% end %>
             </div>
           </li>
-          <li class="nav-item dropdown">            <li class="nav-item dropdown" id="activeTransactions">
+          <li class="nav-item dropdown" id="activeTransactions">
             <a href="#" role="button" id="navbarTransactionsDropdown" class="nav-link topnav-nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="nav-link-icon">
                 <%= render BlockScoutWeb.IconsView, "_transaction_icon.html" %>
@@ -80,7 +84,7 @@
             </div>
           </li>
         <% end %>
-        <%= if apps_menu == true || staking_enabled_in_menu do %>
+        <%= if apps_menu == true do %>
           <li class="nav-item dropdown">
             <a href="#" role="button" id="navbarAppsDropdown" class="nav-link topnav-nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="nav-link-icon">
@@ -93,12 +97,6 @@
               <% end %>
             </a>
             <div class="dropdown-menu" aria-labeledby="navbarAppsDropdown">
-              <%= if staking_enabled_in_menu do %>
-                <a class="dropdown-item <%= #{tab_status("validators", @conn.request_path)} %>" href="<%= validators_path(@conn, :index) %>">
-                  <%= gettext("Staking") %>
-                  <span class="bs-label secondary right from-dropdown">New</span>
-                </a>
-              <% end %>
               <%= if apps_menu == true do %>
                 <%= for %{url: url, title: title} <- external_apps_list() do %>
                     <a href="<%= url %>" class="dropdown-item" target="_blank"><%= title %>
@@ -112,7 +110,7 @@
           </li>
         <% end %>
         <li class="nav-item dropdown">
-          <a class="nav-link topnav-nav-link active-icon <%= if dropdown_nets() != [], do: "dropdown-toggle js-show-network-selector" %>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link topnav-nav-link active-icon <%= if dropdown_nets() != [], do: "dropdown-toggle" %>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="nav-link-icon">
               <%= render BlockScoutWeb.IconsView, "_active_icon.html" %>
             </span>
