@@ -126,7 +126,7 @@
               <a class="dropdown-item" href="<%= url %>"><%= title %></a>
             <% end %>
             <a class="dropdown-item header division">Staging Network</a>
-            <%= for %{url: url, title: title} <- dropdown_other_nets() do %>
+            <%= for %{url: url, title: title} <- dropdown_head_staging_nets() do %>
               <a class="dropdown-item" href="<%= url %>"><%= title %></a>
             <% end %>
           </div>

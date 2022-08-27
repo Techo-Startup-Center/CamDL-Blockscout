@@ -175,6 +175,11 @@ defmodule BlockScoutWeb.LayoutView do
     |> Enum.filter(&Map.get(&1, :test_net?))
   end
 
+  def staging_nets(nets) do
+    nets
+    |> Enum.filter(&Map.get(&1, :other?))
+  end
+
   def test_nets_footer(nets) do
     nets
     |> Enum.reject(&Map.get(&1, :main_net?))
@@ -201,10 +206,9 @@ defmodule BlockScoutWeb.LayoutView do
     |> Enum.reject(&Map.get(&1, :other?))
   end
 
-  def dropdown_other_nets do
+  def dropdown_head_staging_nets do
     dropdown_nets()
-    |> main_nets()
-    |> Enum.filter(&Map.get(&1, :other?))
+    |> staging_nets()
   end
 
   def other_explorers do
