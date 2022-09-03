@@ -9,33 +9,38 @@ defmodule BlockScoutWeb.LayoutView do
 
   @default_other_networks [
     %{
-      title: "Mainnet Explorer",
-      url: "https://explorer.camdl.gov.kh",
+      title: "CamDL Home Page",
+      url: "https://camdl.gov.kh",
       main_net?: true
     },
     %{
-      title: "Mainnet Network Status",
-      url: "https://explorer.camdl.gov.kh",
+      title: "Mainnet Blockscout",
+      url: "https://blockscout.camdl.gov.kh",
       main_net?: true
     },
     %{
-      title: "Test Explorer",
-      url: "https://testnet-explorer.camdl.gov.kh",
+      title: "Mainnet Status",
+      url: "https://ethstats.camdl.gov.kh",
+      main_net?: true
+    },
+    %{
+      title: "Testnet Blockscout",
+      url: "https://blockscout.testnet.camdl.gov.kh",
       test_net?: true
     },
     %{
-      title: "Test Network Status",
-      url: "https://testnet-stats.camdl.gov.kh",
+      title: "Testnet Status",
+      url: "https://ethstats.testnet.camdl.gov.kh",
       test_net?: true
     },
     %{
-      title: "Staging Explorer",
-      url: "https://staging-explorer.camdl.gov.kh",
+      title: "Staging Network Blockscout",
+      url: "https://blockscout.staging.camdl.gov.kh",
       other?: true
     },
     %{
       title: "Staging Network Status",
-      url: "https://staging-stats.camdl.gov.kh",
+      url: "https://ethstats.staging.camdl.gov.kh",
       other?: true
     }
   ]
