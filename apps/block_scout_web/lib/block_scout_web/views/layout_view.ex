@@ -14,33 +14,33 @@ defmodule BlockScoutWeb.LayoutView do
       main_net?: true
     },
     %{
-      title: "Mainnet Blockscout",
-      url: "https://blockscout.camdl.gov.kh",
+      title: "Mainnet Explorer",
+      url: "https://explorer.camdl.gov.kh",
       main_net?: true
     },
     %{
       title: "Mainnet Status",
-      url: "https://ethstats.camdl.gov.kh",
+      url: "https://netstats.camdl.gov.kh",
       main_net?: true
     },
     %{
-      title: "Testnet Blockscout",
-      url: "https://blockscout.testnet.camdl.gov.kh",
+      title: "Testnet Explorer",
+      url: "https://explorer.testnet.camdl.gov.kh",
       test_net?: true
     },
     %{
       title: "Testnet Status",
-      url: "https://ethstats.testnet.camdl.gov.kh",
+      url: "https://netstats.testnet.camdl.gov.kh",
       test_net?: true
     },
     %{
-      title: "Staging Network Blockscout",
-      url: "https://blockscout.staging.camdl.gov.kh",
+      title: "Staging Network Explorer",
+      url: "https://explorer.staging.camdl.gov.kh",
       other?: true
     },
     %{
       title: "Staging Network Status",
-      url: "https://ethstats.staging.camdl.gov.kh",
+      url: "https://netstats.staging.camdl.gov.kh",
       other?: true
     }
   ]
