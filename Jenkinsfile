@@ -4,7 +4,7 @@ pipeline{
         stage("Build and tag image") {
             steps {
                 script {
-                    docker.build("registry.camdx.gov.kh/camdl/blockscout:v4.1.7-$BUILD_NUMBER-beta","-f ./docker/Dockerfile .")
+                    docker.build("registry.camdx.gov.kh/camdl/blockscout:v4.1.7-$BUILD_NUMBER-beta","-f ./docker/Dockerfile --build-arg COIN=CADL .")
                 }
             }
         }
