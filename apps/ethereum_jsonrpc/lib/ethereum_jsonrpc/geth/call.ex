@@ -254,7 +254,8 @@ defmodule EthereumJSONRPC.Geth.Call do
         gas_used: 1040,
         input: "0x0f370699",
         output: "0x",
-        value: 0
+        value: 0,
+        error: nil
       }
 
   A selfdestruct destroys the calling contract and sends any left over balance to the to address.
@@ -323,7 +324,7 @@ defmodule EthereumJSONRPC.Geth.Call do
          "transactionHash" => transaction_hash,
          "index" => index,
          "traceAddress" => trace_address,
-         "type" => "call" = type,
+         "type" => type,
          "callType" => call_type,
          "from" => from_address_hash,
          "to" => to_address_hash,
@@ -332,14 +333,14 @@ defmodule EthereumJSONRPC.Geth.Call do
          "error" => error,
          "value" => value
        })
-       when call_type in ~w(call callcode delegatecall) do
+       when type in ~w(call invalid) and call_type in ~w(call callcode delegatecall invalid) do
     %{
       block_number: block_number,
       transaction_index: transaction_index,
       transaction_hash: transaction_hash,
       index: index,
       trace_address: trace_address,
-      type: type,
+      type: "call",
       call_type: call_type,
       from_address_hash: from_address_hash,
       to_address_hash: to_address_hash,
@@ -356,7 +357,7 @@ defmodule EthereumJSONRPC.Geth.Call do
          "transactionHash" => transaction_hash,
          "index" => index,
          "traceAddress" => trace_address,
-         "type" => "call" = type,
+         "type" => type,
          "callType" => call_type,
          "from" => from_address_hash,
          "to" => to_address_hash,
@@ -366,14 +367,14 @@ defmodule EthereumJSONRPC.Geth.Call do
          "output" => output,
          "value" => value
        })
-       when call_type in ~w(call callcode delegatecall) do
+       when type in ~w(call invalid) and call_type in ~w(call callcode delegatecall invalid) do
     %{
       block_number: block_number,
       transaction_index: transaction_index,
       transaction_hash: transaction_hash,
       index: index,
       trace_address: trace_address,
-      type: type,
+      type: "call",
       call_type: call_type,
       from_address_hash: from_address_hash,
       to_address_hash: to_address_hash,
@@ -416,7 +417,8 @@ defmodule EthereumJSONRPC.Geth.Call do
       gas_used: gas_used,
       input: input,
       output: params["output"],
-      value: value
+      value: value,
+      error: params["error"]
     }
   end
 
@@ -507,6 +509,35 @@ defmodule EthereumJSONRPC.Geth.Call do
       gas: gas,
       gas_used: gas_used,
       value: value
+    }
+  end
+
+  defp elixir_to_internal_transaction_params(%{
+         "blockNumber" => block_number,
+         "transactionIndex" => transaction_index,
+         "transactionHash" => transaction_hash,
+         "index" => index,
+         "traceAddress" => trace_address,
+         "type" => "stop" = type,
+         "from" => from_address_hash,
+         "input" => input,
+         "gas" => gas,
+         "gasUsed" => gas_used,
+         "value" => value
+       }) do
+    %{
+      block_number: block_number,
+      transaction_index: transaction_index,
+      transaction_hash: transaction_hash,
+      index: index,
+      trace_address: trace_address,
+      type: type,
+      from_address_hash: from_address_hash,
+      input: input,
+      gas: gas,
+      gas_used: gas_used,
+      value: value,
+      error: "execution stopped"
     }
   end
 end

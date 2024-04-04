@@ -1,6 +1,7 @@
 // Default variables
 $header-background-color: #fff !default;
 $header-links-color: #828ba0 !default;
+$header-links-background-color: #fff !default;
 $header-links-color-active: #333 !default;
 $header-icon-color: $header-links-color !default;
 $header-icon-color-hover: $secondary !default;
@@ -25,6 +26,12 @@ $navbar-logo-width: auto !default;
   }
 
   .navbar-nav {
+
+    .nav-submenu {
+      padding: 10px 20px;
+      color: $header-links-color;
+      background-color: $header-links-background-color;
+    }
     
     .nav-link {
       outline: none;
@@ -249,7 +256,7 @@ $navbar-logo-width: auto !default;
 }
 
 .logo-text {
-  color: #333;
+  color: $header-logo-text-color;
   font-size: 1rem;
   font-weight: 700;
   margin-left: 5px;

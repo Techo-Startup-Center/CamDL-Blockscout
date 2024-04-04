@@ -3,6 +3,7 @@ defmodule BlockScoutWeb.ChainView do
 
   require Decimal
   import Number.Currency, only: [number_to_currency: 2]
+  import BlockScoutWeb.API.V2.Helper, only: [market_cap: 2]
 
   alias BlockScoutWeb.LayoutView
   # alias Explorer.Chain.Supply.TokenBridge
@@ -88,10 +89,7 @@ defmodule BlockScoutWeb.ChainView do
   defp gas_prices do
     case GasPriceOracle.get_gas_prices() do
       {:ok, gas_prices} ->
-        gas_prices
-
-      nil ->
-        nil
+        %{slow: gas_prices[:slow][:price], average: gas_prices[:average][:price], fast: gas_prices[:fast][:price]}
 
       _ ->
         nil

@@ -36,6 +36,11 @@ config :logger, :block_import_timings,
   path: Path.absname("logs/dev/indexer/block_import_timings.log"),
   metadata_filter: [fetcher: :block_import_timings]
 
+config :logger, :withdrawal,
+  level: :debug,
+  path: Path.absname("logs/dev/indexer/withdrawal.log"),
+  metadata_filter: [fetcher: :withdrawal]
+
 variant =
   if is_nil(System.get_env("ETHEREUM_JSONRPC_VARIANT")) do
     "besu"
