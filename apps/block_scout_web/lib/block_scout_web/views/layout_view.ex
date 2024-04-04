@@ -241,6 +241,30 @@ defmodule BlockScoutWeb.LayoutView do
     end
   end
 
+  def external_apps_list do
+    if Application.get_env(:block_scout_web, :external_apps) do
+      try do
+        :block_scout_web
+        |> Application.get_env(:external_apps)
+        |> Parser.parse!(%{keys: :atoms!})
+      rescue
+        _ ->
+          []
+      end
+    else
+      []
+    end
+  end
+
+  defp validate_url(url) when is_binary(url) do
+    case URI.parse(url) do
+      %URI{host: nil} -> :error
+      _ -> {:ok, url}
+    end
+  end
+
+  defp validate_url(_), do: :error
+
   def apps_list do
     apps = Application.get_env(:block_scout_web, :apps)
 
